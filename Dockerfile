@@ -6,7 +6,9 @@ COPY httpd.conf /usr/local/apache2/conf/httpd.conf
 
 RUN mkdir -p /usr/local/apache2/conf/sites/
 
-RUN a2enmod rewrite
+RUN if command -v a2enmod >/dev/null 2>&1; then \
+        a2enmod rewrite headers \
+    ;fi
 
 ADD . /var/www/html
 
